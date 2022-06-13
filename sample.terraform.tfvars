@@ -1,0 +1,13 @@
+project         = ""
+credentials     = ""
+vpc-network     = ""
+region          = ""
+identifier      = ""
+subnet-cidr     = ""
+disk-size       = ""
+num-nodes       = 1
+instance-type   = ""
+zones           = []
+vpc-native      = true
+private-cluster = false
+version-prefix  = "1.23"
