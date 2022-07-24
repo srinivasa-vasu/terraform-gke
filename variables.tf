@@ -75,3 +75,9 @@ variable "identifier" {
   default     = "yugabyte"
   type        = string
 }
+
+variable "cluster-count" {
+  description = "number of GKE clusters"
+  default     = "1"
+  type        = string
+}

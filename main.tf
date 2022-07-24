@@ -26,7 +26,8 @@ resource "google_compute_subnetwork" "subnet" {
 
 # GKE cluster
 resource "google_container_cluster" "capg" {
-  name               = var.identifier
+  count              = var.cluster-count
+  name               = "${var.identifier}-n${format("%d", count.index)}"
   location           = var.region
   min_master_version = data.google_container_engine_versions.k8s-version.latest_master_version
 
@@ -56,9 +57,10 @@ resource "google_container_cluster" "capg" {
 }
 
 resource "google_container_node_pool" "capg-wk" {
-  name       = "${google_container_cluster.capg.name}-wk"
+  count      = var.cluster-count
+  name       = "${google_container_cluster.capg[count.index].name}-wk"
   location   = var.region
-  cluster    = google_container_cluster.capg.name
+  cluster    = google_container_cluster.capg[count.index].name
   node_count = var.num-nodes
   version    = data.google_container_engine_versions.k8s-version.latest_node_version
 

@@ -10,4 +10,5 @@ instance-type   = ""
 zones           = []
 vpc-native      = true
 private-cluster = false
-version-prefix  = "1.23"
+version-prefix  = "1.24"
+cluster-count   = 1

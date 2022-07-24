@@ -8,14 +8,15 @@ output "project_id" {
   description = "GCloud Project ID"
 }
 
-output "k8s_cluster_name" {
-  value       = google_container_cluster.capg.name
-  description = "GKE Cluster Name"
-}
-
-output "k8s_cluster_host" {
-  value       = google_container_cluster.capg.endpoint
-  description = "GKE Cluster Host"
+output "k8s_cluster_info" {
+  value = [
+    for cluster in google_container_cluster.capg :
+    {
+      "name"     = cluster.name,
+      "endpoint" = cluster.endpoint,
+      "context"  = "gcloud container clusters get-credentials ${cluster.name} --region ${var.region} --project ${var.project}"
+    }
+  ]
 }
 
 output "k8s_master_version" {
